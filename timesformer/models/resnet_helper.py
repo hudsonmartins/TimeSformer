@@ -8,14 +8,6 @@ import torch.nn as nn
 from timesformer.models.nonlocal_helper import Nonlocal
 from timesformer.models.operators import SE, Swish
 
-from torch import einsum
-from einops import rearrange, reduce, repeat
-import torch.nn.functional as F
-from torch.nn.modules.module import Module
-from torch.nn.modules.linear import _LinearWithBias
-from torch.nn.modules.activation import MultiheadAttention
-
-import numpy as np
 
 def get_trans_func(name):
     """
