@@ -105,13 +105,10 @@ def load_pretrained(model, cfg=None, num_classes=1000, in_chans=3, filter_fn=Non
         return
 
     if len(pretrained_model) == 0:
-       state_dict = model_zoo.load_url(cfg['url'], progress=False, map_location='cpu')
+        state_dict = model_zoo.load_url(cfg['url'], progress=False, map_location='cpu')
+        state_dict = state_dict['model']
     else:
-       try:
-         state_dict = load_state_dict(pretrained_model)['model']
-       except:
-         state_dict = load_state_dict(pretrained_model)
-
+        state_dict = load_state_dict(pretrained_model)['model']
 
     if filter_fn is not None:
         state_dict = filter_fn(state_dict)
@@ -149,7 +146,6 @@ def load_pretrained(model, cfg=None, num_classes=1000, in_chans=3, filter_fn=Non
             conv1_weight *= (3 / float(in_chans))
             conv1_weight = conv1_weight.to(conv1_type)
             state_dict[conv1_name + '.weight'] = conv1_weight
-
 
     classifier_name = cfg['classifier']
     if num_classes == 1000 and cfg['num_classes'] == 1001:
